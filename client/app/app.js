@@ -7,7 +7,8 @@ angular.module('paizaqaApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ui.pagedown'  
+  'ui.pagedown',
+  'ngTagsInput'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
