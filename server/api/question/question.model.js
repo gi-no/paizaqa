@@ -4,9 +4,19 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var QuestionSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  title: String,
+  content: String,
+  answers: [{
+    content: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);
