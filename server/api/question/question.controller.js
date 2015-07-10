@@ -54,6 +54,13 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.createAnswer = function(req, res) {
+  Question.update({_id: req.params.id}, {$push: {answers: {content: req.body.content}}}, function(err, question) {
+    if(err) { return handleError(res, err); }
+    exports.show(req, res);
+  });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }
