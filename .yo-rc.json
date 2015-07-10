@@ -1,0 +1,52 @@
+{
+  "generator-angular-fullstack": {
+    "insertRoutes": true,
+    "registerRoutesFile": "server/routes.js",
+    "routesNeedle": "// Insert routes below",
+    "routesBase": "/api/",
+    "pluralizeRoutes": true,
+    "insertSockets": true,
+    "registerSocketsFile": "server/config/socketio.js",
+    "socketsNeedle": "// Insert sockets below",
+    "filters": {
+      "js": true,
+      "html": true,
+      "sass": true,
+      "uirouter": true,
+      "bootstrap": true,
+      "uibootstrap": true,
+      "socketio": true,
+      "mongoose": true,
+      "auth": true,
+      "oauth": true,
+      "googleAuth": true,
+      "facebookAuth": true,
+      "twitterAuth": true
+    }
+  },
+  "generator-ng-component": {
+    "routeDirectory": "client/app/",
+    "directiveDirectory": "client/app/",
+    "filterDirectory": "client/app/",
+    "serviceDirectory": "client/app/",
+    "basePath": "client",
+    "moduleName": "",
+    "filters": [
+      "uirouter"
+    ],
+    "extensions": [
+      "js",
+      "html",
+      "scss"
+    ],
+    "directiveSimpleTemplates": "",
+    "directiveComplexTemplates": "",
+    "filterTemplates": "",
+    "serviceTemplates": "",
+    "factoryTemplates": "",
+    "controllerTemplates": "",
+    "decoratorTemplates": "",
+    "providerTemplates": "",
+    "routeTemplates": ""
+  }
+}
