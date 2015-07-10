@@ -46,6 +46,15 @@
     <![endif]-->
     <!-- build:js({client,node_modules}) app/vendor.js -->
       <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/angular-socket-io/socket.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -53,6 +62,20 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/account/account.js"></script>
+          <script src="app/account/login/login.controller.js"></script>
+          <script src="app/account/settings/settings.controller.js"></script>
+          <script src="app/account/signup/signup.controller.js"></script>
+          <script src="app/admin/admin.controller.js"></script>
+          <script src="app/admin/admin.js"></script>
+          <script src="app/main/main.controller.js"></script>
+          <script src="app/main/main.js"></script>
+          <script src="components/auth/auth.service.js"></script>
+          <script src="components/auth/user.service.js"></script>
+          <script src="components/modal/modal.service.js"></script>
+          <script src="components/mongoose-error/mongoose-error.directive.js"></script>
+          <script src="components/navbar/navbar.controller.js"></script>
+          <script src="components/socket/socket.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>
