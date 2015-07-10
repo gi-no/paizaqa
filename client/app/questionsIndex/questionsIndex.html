@@ -1,3 +1,36 @@
-<div class="col-md-12">
-This is the questionsIndex view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>paizaQA</h1>
+    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  </div>
+</header>
+
+<div class="container">
+  <div  style="text-align: center">
+    <a type="button" class="btn btn-primary" ng-href="/questions/create">Add New</a>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Question</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="question in questions">
+        <td>
+          <a ng-href="/questions/show/{{question._id}}">{{question.title}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+<footer class="footer">
+  <div class="container">
+      <p>paizaQA</p>
+  </div>
+</footer>

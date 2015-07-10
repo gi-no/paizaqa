@@ -1,3 +1,19 @@
-<div class="col-md-12">
-This is the questionsShow view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <h1>
+    {{question.title}}
+  </h1>
+  <hr/>
+  <h2>Question:</h2>
+  <pagedown-viewer content="question.content"></pagedown-viewer>
+  <hr/>
+  <h2>Answers:</h2>
+  <div ng-repeat="answer in question.answers">
+    {{answer.content}}
+    <hr/>
+  </div>
+  <hr/>
+  <h2>Your answer</h2>
+  <pagedown-editor content="answer.content"></pagedown-editor>
+  <button type="submit" class="btn btn-primary" ng-click="submitAnswer()">Submit</button>
 </div>

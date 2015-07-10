@@ -1,3 +1,17 @@
-<div class="col-md-12">
-This is the questionsCreate view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <form class="thing-form">
+    <h2>Title:</h2>
+    <input type="text" class="form-control" placeholder="" ng-model="question.title">
+    <br>
+    <h2>Question:</h2>
+    <pagedown-editor content="question.content"></pagedown-editor>
+    <h2>Tags:</h2>
+    <tags-input ng-model="tags">
+        <!-- auto-complete source="loadTags($query)"></auto-complete-->
+    </tags-input>
+    <button type="submit" class="btn btn-primary" ng-click="submit()">Post question</button>
+  </form>
+
+
 </div>
