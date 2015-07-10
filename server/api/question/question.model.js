@@ -13,6 +13,13 @@ var QuestionSchema = new Schema({
       default: Date.now,
     }
   }],
+  tags: [{
+    name: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now
