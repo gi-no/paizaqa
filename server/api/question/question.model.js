@@ -14,7 +14,7 @@ var QuestionSchema = new Schema({
     }
   }],
   tags: [{
-    name: String,
+    text: String,
     createdAt: {
       type: Date,
       default: Date.now,

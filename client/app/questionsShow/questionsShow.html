@@ -3,13 +3,19 @@
   <h1>
     {{question.title}}
   </h1>
+  <span ng-repeat="tag in question.tags">
+    <span class="label label-info">
+      {{tag.text}}
+    </span>
+    &nbsp;
+  </span>
   <hr/>
   <h2>Question:</h2>
   <pagedown-viewer content="question.content"></pagedown-viewer>
   <hr/>
   <h2>Answers:</h2>
   <div ng-repeat="answer in question.answers">
-    {{answer.content}}
+    <pagedown-viewer content="answer.content"></pagedown-viewer>
     <hr/>
   </div>
   <hr/>

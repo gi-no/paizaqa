@@ -23,6 +23,12 @@
       <tr ng-repeat="question in questions">
         <td>
           <a ng-href="/questions/show/{{question._id}}">{{question.title}}</a>
+          <span ng-repeat="tag in question.tags">
+            <span class="label label-info">
+              {{tag.text}}
+            </span>
+            &nbsp;
+          </span>
         </td>
       </tr>
     </tbody>

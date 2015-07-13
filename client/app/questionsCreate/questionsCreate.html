@@ -7,7 +7,7 @@
     <h2>Question:</h2>
     <pagedown-editor content="question.content"></pagedown-editor>
     <h2>Tags:</h2>
-    <tags-input ng-model="tags">
+    <tags-input ng-model="question.tags">
         <!-- auto-complete source="loadTags($query)"></auto-complete-->
     </tags-input>
     <button type="submit" class="btn btn-primary" ng-click="submit()">Post question</button>
