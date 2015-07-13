@@ -5,7 +5,7 @@ var Question = require('./question.model');
 
 // Get list of questions
 exports.index = function(req, res) {
-  Question.find(function (err, questions) {
+  Question.find().sort({createdAt: -1}).limit(20).exec(function (err, questions) {
     if(err) { return handleError(res, err); }
     return res.json(200, questions);
   });
