@@ -12,11 +12,33 @@
   <hr/>
   <h2>Question:</h2>
   <pagedown-viewer content="question.content"></pagedown-viewer>
-  <hr/>
+  <div ng-repeat="comment in question.comments">
+    <hr/>
+    <pagedown-viewer content="comment.content"></pagedown-viewer>
+  </div>
+  <a ng-click="editQuestionComment=!editQuestionComment;">add a comment</a>
+  <form ng-if="editQuestionComment" name="commentForm">
+    <hr/>
+    <pagedown-editor content="questionComment.content" editor-class="'comment-wmd-input'"
+      ng-model="questionComment.content" name="commentEditor" required>
+    </pagedown-editor>
+    <button type="button" class="btn btn-primary" ng-click="submitQuestionComment()" ng-disabled="commentForm.$invalid">Add Comment</button>
+  </form>
   <h2>Answers:</h2>
   <div ng-repeat="answer in question.answers">
     <pagedown-viewer content="answer.content"></pagedown-viewer>
-    <hr/>
+    <div ng-repeat="comment in answer.comments">
+      <hr/>
+      <pagedown-viewer content="comment.content"></pagedown-viewer>
+    </div>
+    <a ng-click="editAnswerComment=!editAnswerComment;answer.answerComment={}">add a comment</a>
+    <form ng-if="editAnswerComment" name="answer_{{answer.id}}_comment">
+      <hr/>
+      <pagedown-editor content="answer.answerComment.content" editor-class="'comment-wmd-input'"
+        ng-model="answer.answerComment.content" required>
+      </pagedown-editor>
+      <button type="button" class="btn btn-primary" ng-click="submitAnswerComment(answer)" ng-disabled="answer_{{answer.id}}_comment.$invalid">Add Comment</button>
+    </form>
   </div>
   <hr/>
   <h2>Your answer</h2>

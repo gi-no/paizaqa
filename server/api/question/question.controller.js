@@ -61,6 +61,23 @@ exports.createAnswer = function(req, res) {
   });
 };
 
+exports.createComment = function(req, res) {
+  console.log("req.body", req.body);
+  Question.update({_id: req.params.id}, {$push: {comments: {content: req.body.content}}}, function(err, question){
+    if(err) {return handleError(res, err); }
+    exports.show(req, res);
+  })
+}
+
+exports.createAnswerComment = function(req, res) {
+  console.log("req.body=", req.body);
+  console.log("req.params=", req.params);
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$push: {'answers.$.comments': {content: req.body.content}}}, function(err, question){
+    if(err) {return handleError(res, err); }
+    exports.show(req, res);
+  })
+}
+
 function handleError(res, err) {
   return res.send(500, err);
 }

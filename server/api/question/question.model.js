@@ -11,10 +11,24 @@ var QuestionSchema = new Schema({
     createdAt: {
       type: Date,
       default: Date.now,
-    }
+    },
+    comments: [{
+      content: String,
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      }
+    }]
   }],
   tags: [{
     text: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  }],
+  comments: [{
+    content: String,
     createdAt: {
       type: Date,
       default: Date.now,
