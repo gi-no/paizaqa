@@ -1,16 +1,26 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container">
-  <form class="thing-form">
+  <form name="form" class="thing-form">
     <h2>Title:</h2>
-    <input type="text" class="form-control" placeholder="" ng-model="question.title">
+    <input type="text" class="form-control" placeholder="" ng-model="question.title" name="question_title" required>
+    <span class="text-danger" ng-messages="form.question_title.$error">
+      <span ng-message="required">Required</span>
+    </span>
+    <span class="text-success" ng-show="form.question_title.$valid">OK</span>
+
     <br>
     <h2>Question:</h2>
-    <pagedown-editor content="question.content"></pagedown-editor>
+    <pagedown-editor content="question.content" ng-model="question.content" name="question_content" required></pagedown-editor>
+    <span class="text-danger" ng-messages="form.question_content.$error">
+      <span ng-message="required">Required</span>
+    </span>
+    <span class="text-success" ng-show="form.question_content.$valid">OK</span>
+
     <h2>Tags:</h2>
     <tags-input ng-model="question.tags">
         <!-- auto-complete source="loadTags($query)"></auto-complete-->
     </tags-input>
-    <button type="submit" class="btn btn-primary" ng-click="submit()">Post question</button>
+    <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="form.$invalid">Post question</button>
   </form>
 
 
