@@ -9,8 +9,9 @@
 </header>
 
 <div class="container">
+  <br/>
   <div  style="text-align: center">
-    <a type="button" class="btn btn-primary" ng-href="/questions/create">Add New</a>
+    <a type="button" class="btn btn-primary" ng-href="/questions/create">Ask Question</a>
   </div>
 
   <table class="table table-striped">
@@ -23,12 +24,15 @@
       <tr ng-repeat="question in questions">
         <td>
           <a ng-href="/questions/show/{{question._id}}">{{question.title}}</a>
-          <span ng-repeat="tag in question.tags">
-            <span class="label label-info">
-              {{tag.text}}
+          <div>
+            <span ng-repeat="tag in question.tags">
+              <span class="label label-info">
+                {{tag.text}}
+              </span>
+              &nbsp;
             </span>
-            &nbsp;
-          </span>
+          </div>
+          <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
         </td>
       </tr>
     </tbody>

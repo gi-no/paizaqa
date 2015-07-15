@@ -7,38 +7,47 @@
     <span class="label label-info">
       {{tag.text}}
     </span>
-    &nbsp;
   </span>
   <hr/>
+  <button ng-if="isMyQuestion(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
   <pagedown-viewer content="question.content"></pagedown-viewer>
+  <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
+  &nbsp;
   <div class="comment">
     <div ng-repeat="comment in question.comments">
       <hr/>
+      <button ng-if="isMyComment(comment)" type="button" class="close" ng-click="deleteComment(comment)">&times;</button>
       <pagedown-viewer content="comment.content"></pagedown-viewer>
+      <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
     </div>
     <hr/>
-    <a ng-click="editQuestionComment=!editQuestionComment;">add a comment</a>
-    <form ng-if="editQuestionComment" name="commentForm">
-      <pagedown-editor content="questionComment.content" editor-class="'comment-wmd-input'"
-        ng-model="questionComment.content" name="commentEditor" required>
+    <a ng-click="editNewComment=!editNewComment;">add a comment</a>
+    <form ng-if="editNewComment" name="commentForm">
+      <pagedown-editor content="newComment.content" editor-class="'comment-wmd-input'"
+        ng-model="newComment.content" name="commentEditor" required>
       </pagedown-editor>
-      <button type="button" class="btn btn-primary" ng-click="submitQuestionComment()" ng-disabled="commentForm.$invalid">Add Comment</button>
+      <button type="button" class="btn btn-primary" ng-click="submitComment(questionComment)" ng-disabled="commentForm.$invalid">Add Comment</button>
     </form>
   </div>
   <h3>{{question.answers.length}} Answers</h2>
-  <hr/>
   <div ng-repeat="answer in question.answers">
+    <hr/>
+    <button ng-if="isMyAnswer(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
     <pagedown-viewer content="answer.content"></pagedown-viewer>
+    <div class="text-right">by {{answer.user.name}} at {{answer.createdAt}}</div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
         <hr/>
+        <button ng-if="isMyAnswerComment(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
         <pagedown-viewer content="comment.content"></pagedown-viewer>
+        <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
       </div>
-      <a ng-click="editAnswerComment=!editAnswerComment;answer.answerComment={}">add a comment</a>
-      <form ng-if="editAnswerComment" name="answer_{{answer.id}}_comment">
+      <hr/>
+      <a ng-click="editNewAnswerComment=!editNewAnswerComment;answer.newAnswerComment={}">add a comment</a>
+      <form ng-if="editNewAnswerComment" name="answer_{{answer.id}}_comment">
         <hr/>
-        <pagedown-editor content="answer.answerComment.content" editor-class="'comment-wmd-input'"
-          ng-model="answer.answerComment.content" required>
+        <pagedown-editor content="answer.newAnswerComment.content" editor-class="'comment-wmd-input'"
+          ng-model="answer.newAnswerComment.content" required>
         </pagedown-editor>
         <button type="button" class="btn btn-primary" ng-click="submitAnswerComment(answer)" ng-disabled="answer_{{answer.id}}_comment.$invalid">Add Comment</button>
       </form>

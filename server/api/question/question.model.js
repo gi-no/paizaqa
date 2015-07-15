@@ -8,12 +8,20 @@ var QuestionSchema = new Schema({
   content: String,
   answers: [{
     content: String,
+    user: {
+      type: Schema.ObjectId,
+      ref: 'User'
+    },
     createdAt: {
       type: Date,
       default: Date.now,
     },
     comments: [{
       content: String,
+      user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+      },
       createdAt: {
         type: Date,
         default: Date.now,
@@ -29,11 +37,19 @@ var QuestionSchema = new Schema({
   }],
   comments: [{
     content: String,
+    user: {
+      type: Schema.ObjectId,
+      ref: 'User'
+    },
     createdAt: {
       type: Date,
       default: Date.now,
     }
   }],
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   createdAt: {
     type: Date,
     default: Date.now
