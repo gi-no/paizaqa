@@ -55,6 +55,8 @@
   </div>
   <hr/>
   <h3>Your answer</h2>
-  <pagedown-editor content="answer.content"></pagedown-editor>
-  <button type="submit" class="btn btn-primary" ng-click="submitAnswer()">Submit your answer</button>
+  <form name="answerForm">
+    <pagedown-editor content="answer.content" ng-model="answer.content" name="answerEditor" required></pagedown-editor>
+    <button type="submit" class="btn btn-primary" ng-click="submitAnswer()" ng-disabled="answerForm.$invalid">Submit your answer</button>
+  </form>
 </div>
