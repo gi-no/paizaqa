@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/paizaqa-dev'
   },
 
-  seedDB: true
+  // seedDB: true
 };
