@@ -3,21 +3,41 @@
   <h1>
     {{question.title}}
   </h1>
+
   <span ng-repeat="tag in question.tags">
     <span class="label label-info">
       {{tag.text}}
     </span>
   </span>
   <hr/>
-  <button ng-if="isMyQuestion(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
   <pagedown-viewer content="question.content"></pagedown-viewer>
+
+  <button ng-if=" isStar(question)" type="button" class="close" ng-click="unstar('')">
+    <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+  </button>
+  <button ng-if="!isStar(question)" type="button" class="close" ng-click="star('')"  >
+    <span class="glyphicon glyphicon-star-empty"></span>
+  </button>
+
+  <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
+  <div class="text-right">{{question.stars.length}} Stars</div>
   <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
   &nbsp;
   <div class="comment">
     <div ng-repeat="comment in question.comments">
       <hr/>
-      <button ng-if="isMyComment(comment)" type="button" class="close" ng-click="deleteComment(comment)">&times;</button>
+
+      <button ng-if=" isStar(comment)" type="button" class="close" ng-click="unstar('/comments/' + comment._id)">
+        <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+      </button>
+      <button ng-if="!isStar(comment)" type="button" class="close" ng-click="star('/comments/' + comment._id)"  >
+        <span class="glyphicon glyphicon-star-empty"></span>
+      </button>
+
+
+      <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteComment(comment)">&times;</button>
       <pagedown-viewer content="comment.content"></pagedown-viewer>
+      <div class="text-right">{{comment.stars.length}} Stars</div>
       <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
     </div>
     <hr/>
@@ -32,14 +52,32 @@
   <h3>{{question.answers.length}} Answers</h2>
   <div ng-repeat="answer in question.answers">
     <hr/>
-    <button ng-if="isMyAnswer(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
+
+    <button ng-if=" isStar(answer)" type="button" class="close" ng-click="unstar('/answers/' + answer._id)">
+      <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+    </button>
+    <button ng-if="!isStar(answer)" type="button" class="close" ng-click="star('/answers/' + answer._id)"  >
+      <span class="glyphicon glyphicon-star-empty"></span>
+    </button>
+
+    <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
     <pagedown-viewer content="answer.content"></pagedown-viewer>
+    <div class="text-right">{{answer.stars.length}} Stars</div>
     <div class="text-right">by {{answer.user.name}} at {{answer.createdAt}}</div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
         <hr/>
-        <button ng-if="isMyAnswerComment(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
+
+        <button ng-if=" isStar(comment)" type="button" class="close" ng-click="unstar('/answers/' + answer._id + '/comments/' + comment._id)">
+          <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+        </button>
+        <button ng-if="!isStar(comment)" type="button" class="close" ng-click="star('/answers/' + answer._id + '/comments/' + comment._id)"  >
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+
+        <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
         <pagedown-viewer content="comment.content"></pagedown-viewer>
+        <div class="text-right">{{comment.stars.length}} Stars</div>
         <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
       </div>
       <hr/>
@@ -56,7 +94,7 @@
   <hr/>
   <h3>Your answer</h2>
   <form name="answerForm">
-    <pagedown-editor content="answer.content" ng-model="answer.content" name="answerEditor" required></pagedown-editor>
+    <pagedown-editor content="newAnswer.content" ng-model="newAnswer.content" name="answerEditor" required></pagedown-editor>
     <button type="submit" class="btn btn-primary" ng-click="submitAnswer()" ng-disabled="answerForm.$invalid">Submit your answer</button>
   </form>
 </div>

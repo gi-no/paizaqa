@@ -23,6 +23,9 @@
     <tbody>
       <tr ng-repeat="question in questions">
         <td>
+          {{question.stars.length}}
+          <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+          <span class="glyphicon glyphicon-star-empty"></span>
           <a ng-href="/questions/show/{{question._id}}">{{question.title}}</a>
           <div>
             <span ng-repeat="tag in question.tags">
