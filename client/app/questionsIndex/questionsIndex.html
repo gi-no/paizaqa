@@ -17,16 +17,27 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th width="20">Stars</th>
+        <th width="20">Answers</th>
         <th>Question</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="question in questions">
+        <td style="text-align: center; vertical-align:middle">
+          <div style="font-size: xx-large;">{{question.stars.length}}</div>
+        </td>
+        <td style="text-align: center; vertical-align:middle">
+          <div style="font-size: xx-large;">{{question.answers.length}}</div>
+        </td>
         <td>
-          {{question.stars.length}}
-          <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
-          <span class="glyphicon glyphicon-star-empty"></span>
-          <a ng-href="/questions/show/{{question._id}}">{{question.title}}</a>
+          <div style="float: right;">
+            <span ng-if=" isStar(question)" class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+            <span ng-if="!isStar(question)" class="glyphicon glyphicon-star-empty"></span>
+          </div>
+          <a ng-href="/questions/show/{{question._id}}" style="font-size: large">{{question.title}}</a>
+          <div class="clearfix"></div>
+          <div style="float: right;">by {{question.user.name}} at {{question.createdAt}}</div>
           <div>
             <span ng-repeat="tag in question.tags">
               <span class="label label-info">
@@ -35,7 +46,7 @@
               &nbsp;
             </span>
           </div>
-          <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
+          <div class="clearfix"></div>
         </td>
       </tr>
     </tbody>

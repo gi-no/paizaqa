@@ -1,44 +1,50 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="question-show-container">
-  <h1>
-    {{question.title}}
-  </h1>
-
-  <span ng-repeat="tag in question.tags">
-    <span class="label label-info">
-      {{tag.text}}
-    </span>
-  </span>
+  <div>
+    <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
+    <div style="float: left;font-size: x-large; padding: 0; width: 2em; text-align: center;">
+      <button ng-if=" isStar(question)" type="button" style="background: transparent; border: 0;" ng-click="unstar('')">
+        <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+      </button>
+      <button ng-if="!isStar(question)" type="button" style="background: transparent; border: 0;" ng-click="star('')"  >
+        <span class="glyphicon glyphicon-star-empty"></span>
+      </button>
+      <br/>
+      <div>{{question.stars.length}}</div>
+    </div>
+    <div>
+      <h1>{{question.title}}</h1>
+      <span ng-repeat="tag in question.tags">
+        <span class="label label-info">
+          {{tag.text}}
+        </span>
+      </span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
   <hr/>
   <pagedown-viewer content="question.content"></pagedown-viewer>
 
-  <button ng-if=" isStar(question)" type="button" class="close" ng-click="unstar('')">
-    <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
-  </button>
-  <button ng-if="!isStar(question)" type="button" class="close" ng-click="star('')"  >
-    <span class="glyphicon glyphicon-star-empty"></span>
-  </button>
 
-  <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
-  <div class="text-right">{{question.stars.length}} Stars</div>
   <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
   &nbsp;
   <div class="comment">
     <div ng-repeat="comment in question.comments">
       <hr/>
-
-      <button ng-if=" isStar(comment)" type="button" class="close" ng-click="unstar('/comments/' + comment._id)">
-        <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
-      </button>
-      <button ng-if="!isStar(comment)" type="button" class="close" ng-click="star('/comments/' + comment._id)"  >
-        <span class="glyphicon glyphicon-star-empty"></span>
-      </button>
-
-
       <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteComment(comment)">&times;</button>
+      <div style="float: left;font-size: normal; padding: 0; width: 2em; text-align: center;">
+        <button ng-if=" isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/comments/' + comment._id)">
+          <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+        </button>
+        <button ng-if="!isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="  star('/comments/' + comment._id)"  >
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+        <br/>
+        <div>{{comment.stars.length}}</div>
+      </div>
       <pagedown-viewer content="comment.content"></pagedown-viewer>
-      <div class="text-right">{{comment.stars.length}} Stars</div>
-      <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
+      <div class="text-right" style="vertical-align: bottom;">by {{comment.user.name}} at {{comment.createdAt}}</div>
+      <div class="clearfix"></div>
     </div>
     <hr/>
     <a ng-click="editNewComment=!editNewComment;">add a comment</a>
@@ -53,32 +59,44 @@
   <div ng-repeat="answer in question.answers">
     <hr/>
 
-    <button ng-if=" isStar(answer)" type="button" class="close" ng-click="unstar('/answers/' + answer._id)">
-      <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
-    </button>
-    <button ng-if="!isStar(answer)" type="button" class="close" ng-click="star('/answers/' + answer._id)"  >
-      <span class="glyphicon glyphicon-star-empty"></span>
-    </button>
+    <div style="float: left;font-size: large; padding: 0; width: 2em; text-align: center;">
+      <button ng-if=" isStar(answer)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/answers/' + answer._id)">
+        <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+      </button>
+      <button ng-if="!isStar(answer)" type="button" style="background: transparent; border: 0;" ng-click="  star('/answers/' + answer._id)"  >
+        <span class="glyphicon glyphicon-star-empty"></span>
+      </button>
+      <br/>
+      <div>{{answer.stars.length}}</div>
+    </div>
 
     <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
     <pagedown-viewer content="answer.content"></pagedown-viewer>
-    <div class="text-right">{{answer.stars.length}} Stars</div>
     <div class="text-right">by {{answer.user.name}} at {{answer.createdAt}}</div>
+    <div class="clearfix"></div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
         <hr/>
 
-        <button ng-if=" isStar(comment)" type="button" class="close" ng-click="unstar('/answers/' + answer._id + '/comments/' + comment._id)">
-          <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
-        </button>
-        <button ng-if="!isStar(comment)" type="button" class="close" ng-click="star('/answers/' + answer._id + '/comments/' + comment._id)"  >
-          <span class="glyphicon glyphicon-star-empty"></span>
-        </button>
+
+
+
+        <div style="float: left;font-size: normal; padding: 0; width: 2em; text-align: center;">
+          <button ng-if=" isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/answers/' + answer._id + '/comments/' + comment._id)">
+            <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
+          </button>
+          <button ng-if="!isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="  star('/answers/' + answer._id + '/comments/' + comment._id)"  >
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </button>
+          <br/>
+          <div>{{comment.stars.length}}</div>
+        </div>
+
 
         <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
         <pagedown-viewer content="comment.content"></pagedown-viewer>
-        <div class="text-right">{{comment.stars.length}} Stars</div>
         <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
+        <div class="clearfix"></div>
       </div>
       <hr/>
       <a ng-click="editNewAnswerComment=!editNewAnswerComment;answer.newAnswerComment={}">add a comment</a>
