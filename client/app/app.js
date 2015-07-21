@@ -54,4 +54,18 @@ angular.module('paizaqaApp', [
         }
       });
     });
+
+    /*
+      Issue: I'm getting a blank screen, and there are NO errors!
+      https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#issue-im-getting-a-blank-screen-and-there-are-no-errors
+      Issue: JavaScript errors don't throw within resolve functions
+      https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#issue-javascript-errors-dont-throw-within-resolve-functions
+      More verbose logging to the console
+      https://github.com/angular-ui/ui-router/issues/1871
+    */
+    $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams){
+      console.error('$stateChangeError - fired when an error occurs during transition.');
+      console.error(arguments);
+    });
+
   });
