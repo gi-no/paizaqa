@@ -37,7 +37,10 @@
           </div>
           <a ng-href="/questions/show/{{question._id}}" style="font-size: large">{{question.title}}</a>
           <div class="clearfix"></div>
-          <div style="float: right;">by {{question.user.name}} at {{question.createdAt}}</div>
+          <div style="float: right;">
+            by <a ng-href="/users/{{question.user._id}}">{{question.user.name}}</a>
+            at {{question.createdAt}}
+          </div>
           <div>
             <span ng-repeat="tag in question.tags">
               <span class="label label-info">

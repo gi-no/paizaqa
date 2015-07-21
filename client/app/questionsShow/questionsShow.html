@@ -26,7 +26,7 @@
   <pagedown-viewer content="question.content"></pagedown-viewer>
 
 
-  <div class="text-right">by {{question.user.name}} at {{question.createdAt}}</div>
+  <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{question.user.name}}</a> at {{question.createdAt}}</div>
   &nbsp;
   <div class="comment">
     <div ng-repeat="comment in question.comments">
@@ -43,7 +43,7 @@
         <div>{{comment.stars.length}}</div>
       </div>
       <pagedown-viewer content="comment.content"></pagedown-viewer>
-      <div class="text-right" style="vertical-align: bottom;">by {{comment.user.name}} at {{comment.createdAt}}</div>
+      <div class="text-right" style="vertical-align: bottom;">by <a ng-href="/users/{{comment.user._id}}">{{comment.user.name}}</a> at {{comment.createdAt}}</div>
       <div class="clearfix"></div>
     </div>
     <hr/>
@@ -72,7 +72,7 @@
 
     <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
     <pagedown-viewer content="answer.content"></pagedown-viewer>
-    <div class="text-right">by {{answer.user.name}} at {{answer.createdAt}}</div>
+    <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{answer.user.name}}</a> at {{answer.createdAt}}</div>
     <div class="clearfix"></div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
@@ -95,7 +95,7 @@
 
         <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
         <pagedown-viewer content="comment.content"></pagedown-viewer>
-        <div class="text-right">by {{comment.user.name}} at {{comment.createdAt}}</div>
+        <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{comment.user.name}}</a> at {{comment.createdAt}}</div>
         <div class="clearfix"></div>
       </div>
       <hr/>

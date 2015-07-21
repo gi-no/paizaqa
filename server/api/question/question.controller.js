@@ -5,7 +5,8 @@ var Question = require('./question.model');
 
 // Get list of questions
 exports.index = function(req, res) {
-  Question.find().sort({createdAt: -1}).limit(20).populate('user', 'name').populate('comments.user', 'name').exec(function (err, questions) {
+  var query = req.query.query && JSON.parse(req.query.query);
+  Question.find(query).sort({createdAt: -1}).limit(20).populate('user', 'name').populate('comments.user', 'name').exec(function (err, questions) {
     if(err) { return handleError(res, err); }
     return res.json(200, questions);
   });

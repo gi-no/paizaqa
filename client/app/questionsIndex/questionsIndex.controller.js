@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .controller('QuestionsIndexCtrl', function ($scope, $http, Auth) {
+  .controller('QuestionsIndexCtrl', function ($scope, $http, Auth, $state, query) {
     $scope.message = 'Hello';
-    $http.get('/api/questions').success(function(questions) {
+
+    $http.get('/api/questions', {params: {query: query}}).success(function(questions) {
       $scope.questions = questions;
     });
     $scope.isStar = function(obj){
