@@ -72,4 +72,29 @@ var QuestionSchema = new Schema({
   }
 });
 
+/*
+We need to specify name explicitly for long schema.
+http://docs.mongodb.org/manual/reference/limits/#Index-Name-Length
+====================================================================
+- MongoDB Limits and Thresholds
+  - Index Name Length
+Fully qualified index names, which includes the namespace and the
+dot separators (i.e. <database name>.<collection name>.$<index name>), 
+cannot be longer than 128 characters.
+
+By default, <index name> is the concatenation of the field names and 
+index type. You can explicitly specify the <index name> to the createIndex() 
+method to ensure that the fully qualified index name does not exceed the limit.
+====================================================================
+*/
+QuestionSchema.index({
+  'aiueoaiueoaiueoaiueo': 'text',
+  'title': 'text',
+  'content': 'text',
+  'tags.text': 'text',
+  'answers.content': 'text',
+  'comments.content': 'text',
+  'answers.comments.content': 'text',
+}, {name: 'question_schema_index'});
+
 module.exports = mongoose.model('Question', QuestionSchema);

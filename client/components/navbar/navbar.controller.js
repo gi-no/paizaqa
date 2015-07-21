@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $state) {
     $scope.menu = [
       {
         'title': 'All',
@@ -33,4 +33,9 @@ angular.module('paizaqaApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+    $scope.search = function(keyword) {
+      $state.go('questionsIndex', {keyword: keyword}, {reload: true});
+    };
+
   });

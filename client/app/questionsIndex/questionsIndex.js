@@ -4,11 +4,11 @@ angular.module('paizaqaApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('questionsIndex', {
-        url: '/',
+        url: '/?keyword',
         templateUrl: 'app/questionsIndex/questionsIndex.html',
         controller: 'QuestionsIndexCtrl',
         resolve: {
-          query: function(){return null;}
+          query: function(){return {};}
         },
       })
       .state('starredQuestionsIndex', {
