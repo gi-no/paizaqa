@@ -64,7 +64,7 @@ angular.module('paizaqaApp', [
       More verbose logging to the console
       https://github.com/angular-ui/ui-router/issues/1871
     */
-    $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams){
+    $rootScope.$on('$stateChangeError',function(/*event, toState, toParams, fromState, fromParams*/){
       console.error('$stateChangeError - fired when an error occurs during transition.');
       console.error(arguments);
     });

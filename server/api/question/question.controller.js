@@ -119,7 +119,7 @@ exports.createComment = function(req, res) {
   })
 }
 exports.destroyComment = function(req, res) {
-  Question.update({_id: req.params.id}, {$pull: {comments: {_id: req.params.commentId , 'user': req.user._id}}}, function(err, question) {
+  Question.update({_id: req.params.id}, {$pull: {comments: {_id: req.params.commentId , 'user': req.user._id}}}, function(err, num) {
     if(err) { return handleError(res, err); }
     if(num === 0) { return res.send(404); }
     exports.show(req, res);
@@ -180,6 +180,7 @@ var pushOrPullStarAnswerComment = function(op, req, res) {
         doc[op] = {};
         doc[op]['answers.' + i + '.comments.$.stars'] = req.user.id;
         // Question.update({_id: req.params.id, 'answers.' + i + '.comments._id': req.params.commentId}, {op: {('answers.' + i + '.comments.$.stars'): req.user.id}}, function(err, num){
+        /*jshint -W083 */
         Question.update(conditions, doc, function(err, num){
           if(err) { return handleError(res, err); }
           if(num === 0) { return res.send(404); }

@@ -10,9 +10,8 @@ angular.module('paizaqaApp')
     var loadQuestions = function(){
       $http.get('/api/questions/' + $stateParams.id).success(function(question) {
         $scope.question = question;
-        console.log("question", question);
       });
-    }
+    };
     loadQuestions();
 
     $scope.submitAnswer = function() {
@@ -20,7 +19,7 @@ angular.module('paizaqaApp')
         loadQuestions();
         $scope.newAnswer = {};
         $scope.editNewAnswer = false;
-      })
+      });
     };
     $scope.questionComment = {};
     $scope.submitComment = function() {
@@ -28,12 +27,12 @@ angular.module('paizaqaApp')
         loadQuestions();
         $scope.newComment = {};
         $scope.editNewComment = false;
-      })
+      });
     };
     $scope.submitAnswerComment = function(answer) {
       $http.post('/api/questions/' + $stateParams.id + '/answers/' + answer._id + '/comments', answer.newAnswerComment).success(function(){
         loadQuestions();
-      })
+      });
     };
 
     $scope.deleteQuestion = function() {
@@ -59,7 +58,7 @@ angular.module('paizaqaApp')
 
     $scope.isOwner = function(obj){
       return Auth.isLoggedIn() && obj && obj.user && obj.user._id === Auth.getCurrentUser()._id;
-    }
+    };
 
     /*
     $scope.isMyQuestion = function(question){
@@ -77,7 +76,7 @@ angular.module('paizaqaApp')
     */
     $scope.isStar = function(obj){
       return Auth.isLoggedIn() && obj && obj.stars && obj.stars.indexOf(Auth.getCurrentUser()._id)!==-1;
-    }
+    };
     $scope.star = function(subpath) {
       $http.put('/api/questions/' + $scope.question._id + subpath + '/star').success(function(){
         loadQuestions();

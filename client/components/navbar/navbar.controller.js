@@ -15,7 +15,7 @@ angular.module('paizaqaApp')
       },
       {
         'title': 'Starred',
-        'link': function(){return '/users/' + Auth.getCurrentUser()._id + '/starred'},
+        'link': function(){return '/users/' + Auth.getCurrentUser()._id + '/starred';},
         'show': Auth.isLoggedIn,
       },
     ];

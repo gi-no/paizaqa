@@ -118,10 +118,10 @@ var getSearchText = function(question){
 };
 QuestionSchema.statics.updateSearchText = function(id, cb){
   this.findOne({_id: id}).exec(function(err, question){
-    if(err){ cb && cb(err); return; }
+    if(err){ if(cb){cb(err);} return; }
     var searchText = getSearchText(question);
     this.update({_id: id}, {searchText: searchText}, function(err, num){
-      cb && cb(err);
+      if(cb){cb(err);}
     });
   }.bind(this));
 };
