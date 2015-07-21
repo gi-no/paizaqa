@@ -76,15 +76,19 @@ exports.unstar = function(req, res) {
 exports.createAnswer = function(req, res) {
   req.body.user = req.user.id;
   console.log("createAnswer:req.body=", req.body);
-  Question.update({_id: req.params.id}, {$push: {answers: req.body}}, function(err, question) {
+  Question.update({_id: req.params.id}, {$push: {answers: req.body}}, function(err, num) {
     if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 exports.destroyAnswer = function(req, res) {
-  Question.update({_id: req.params.id}, {$pull: {answers: {_id: req.params.answerId , 'user': req.user._id}}}, function(err, question) {
+  Question.update({_id: req.params.id}, {$pull: {answers: {_id: req.params.answerId , 'user': req.user._id}}}, function(err, num) {
     if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 exports.starAnswer = function(req, res) {
@@ -107,15 +111,19 @@ exports.unstarAnswer = function(req, res) {
 */
 exports.createComment = function(req, res) {
   req.body.user = req.user.id;
-  Question.update({_id: req.params.id}, {$push: {comments: req.body}}, function(err, question){
+  Question.update({_id: req.params.id}, {$push: {comments: req.body}}, function(err, num){
     if(err) {return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   })
 }
 exports.destroyComment = function(req, res) {
   Question.update({_id: req.params.id}, {$pull: {comments: {_id: req.params.commentId , 'user': req.user._id}}}, function(err, question) {
     if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 exports.starComment = function(req, res) {
@@ -138,15 +146,19 @@ exports.unstarComment = function(req, res) {
 */
 exports.createAnswerComment = function(req, res) {
   req.body.user = req.user.id;
-  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$push: {'answers.$.comments': req.body}}, function(err, question){
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$push: {'answers.$.comments': req.body}}, function(err, num){
     if(err) {return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   })
 }
 exports.destroyAnswerComment = function(req, res) {
-  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$pull: {'answers.$.comments': {_id: req.params.commentId , 'user': req.user._id}}}, function(err, question) {
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$pull: {'answers.$.comments': {_id: req.params.commentId , 'user': req.user._id}}}, function(err, num) {
     if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 
