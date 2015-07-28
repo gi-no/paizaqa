@@ -83,6 +83,13 @@ exports.createAnswer = function(req, res) {
     Question.updateSearchText(req.params.id);
   });
 };
+exports.updateAnswer = function(req, res) {
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {'answers.$.content': req.body.content, 'answers.$.user': req.user.id}, function(err, num){
+    if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
+    exports.show(req, res);
+  });
+};
 exports.destroyAnswer = function(req, res) {
   Question.update({_id: req.params.id}, {$pull: {answers: {_id: req.params.answerId , 'user': req.user._id}}}, function(err, num) {
     if(err) { return handleError(res, err); }
@@ -117,13 +124,20 @@ exports.createComment = function(req, res) {
     exports.show(req, res);
     Question.updateSearchText(req.params.id);
   })
-}
+};
 exports.destroyComment = function(req, res) {
   Question.update({_id: req.params.id}, {$pull: {comments: {_id: req.params.commentId , 'user': req.user._id}}}, function(err, num) {
     if(err) { return handleError(res, err); }
     if(num === 0) { return res.send(404); }
     exports.show(req, res);
     Question.updateSearchText(req.params.id);
+  });
+};
+exports.updateComment = function(req, res) {
+  Question.update({_id: req.params.id, 'comments._id': req.params.commentId}, {'comments.$.content': req.body.content, 'comments.$.user': req.user.id}, function(err, num){
+    if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404); }
+    exports.show(req, res);
   });
 };
 exports.starComment = function(req, res) {
@@ -159,6 +173,47 @@ exports.destroyAnswerComment = function(req, res) {
     if(num === 0) { return res.send(404); }
     exports.show(req, res);
     Question.updateSearchText(req.params.id);
+  });
+};
+
+exports.updateAnswerComment = function(req, res) {
+  console.log("req.params", req.params);
+  console.log("req.body", req.body);
+  Question.find({_id: req.params.id}).exec(function(err, questions){
+    if(err) { return handleError(res, err); }
+    if(questions.length === 0) { return res.send(404); }
+    var question = questions[0];
+    var found = false;
+    console.log("req.params", req.params);
+    console.log("question", question);
+    for(var i=0; i<question.answers.length; i++){
+      if(question.answers[i]._id.toString() === req.params.answerId){
+        found = true;
+        var conditions = {};
+        conditions._id = req.params.id;
+        conditions['answers.' + i + '.comments._id'] = req.params.commentId;
+        conditions['answers.' + i + '.comments.user'] = req.user._id;
+        var doc = {};
+        doc['answers.' + i + '.comments.$.content'] = req.body.content;
+        console.log("UPDATING....");
+        console.log("conditions:", conditions);
+        console.log("doc:", doc);
+       // doc[op] = {};
+       // doc[op]['answers.' + i + '.comments.$.stars'] = req.user.id;
+        // Question.update({_id: req.params.id, 'answers.' + i + '.comments._id': req.params.commentId}, {op: {('answers.' + i + '.comments.$.stars'): req.user.id}}, function(err, num){
+        /*jshint -W083 */
+        Question.update(conditions, doc, function(err, num){
+          if(err) { return handleError(res, err); }
+          console.log("UPDATED:num=", num);
+          if(num === 0) { return res.send(404); }
+          exports.show(req, res);
+          return;
+        });
+      }
+    }
+    if(!found){
+      return res.send(404);
+    }
   });
 };
 

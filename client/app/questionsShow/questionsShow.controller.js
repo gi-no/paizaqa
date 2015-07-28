@@ -56,6 +56,27 @@ angular.module('paizaqaApp')
       });
     };
 
+    $scope.updateQuestion = function() {
+      $http.put('/api/questions/' + $stateParams.id, $scope.question).success(function(){
+        loadQuestions();
+      });
+    };
+    $scope.updateAnswer = function(answer) {
+      $http.put('/api/questions/' + $stateParams.id + '/answers/' + answer._id, answer).success(function(){
+        loadQuestions();
+      });
+    };
+    $scope.updateComment = function(comment) {
+      $http.put('/api/questions/' + $stateParams.id + '/comments/' + comment._id, comment).success(function(){
+        loadQuestions();
+      });
+    };
+    $scope.updateAnswerComment = function(answer, answerComment) {
+      $http.put('/api/questions/' + $stateParams.id + '/answers/' + answer._id + '/comments/' + answerComment._id, answerComment).success(function(){
+        loadQuestions();
+      });
+    };
+
     $scope.isOwner = function(obj){
       return Auth.isLoggedIn() && obj && obj.user && obj.user._id === Auth.getCurrentUser()._id;
     };

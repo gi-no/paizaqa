@@ -13,7 +13,10 @@
       <div>{{question.stars.length}}</div>
     </div>
     <div>
-      <h1>{{question.title}}</h1>
+      <h1>
+        <div ng-if="! editting">{{question.title}}</div>
+        <input type=text ng-model="question.title" ng-if=" editting">
+      </h1>
       <span ng-repeat="tag in question.tags">
         <span class="label label-info">
           {{tag.text}}
@@ -23,8 +26,11 @@
     <div class="clearfix"></div>
   </div>
   <hr/>
-  <pagedown-viewer content="question.content"></pagedown-viewer>
 
+  <pagedown-viewer content="question.content" ng-if="!editting"></pagedown-viewer>
+  <pagedown-editor content="question.content" ng-if=" editting"></pagedown-editor>
+  <button type="submit" class="btn btn-primary" ng-click="editting=false;updateQuestion()" ng-show=" editting">Save</button>
+  <a ng-click="editting=!editting;" ng-show="isOwner(question) && !editting">Edit</a>
 
   <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{question.user.name}}</a> · {{question.createdAt|fromNow}}</div>
   &nbsp;
@@ -42,7 +48,12 @@
         <br/>
         <div>{{comment.stars.length}}</div>
       </div>
-      <pagedown-viewer content="comment.content"></pagedown-viewer>
+
+      <pagedown-viewer content="comment.content" ng-if="!editting"></pagedown-viewer>
+      <pagedown-editor content="comment.content" ng-if=" editting"></pagedown-editor>
+      <button type="submit" class="btn btn-primary" ng-click="editting=false;updateComment(comment)" ng-show=" editting">Save</button>
+      <a ng-click="editting=!editting;" ng-show="isOwner(comment) && !editting">Edit</a>
+
       <div class="text-right" style="vertical-align: bottom;">by <a ng-href="/users/{{comment.user._id}}">{{comment.user.name}}</a> · {{comment.createdAt|fromNow}}</div>
       <div class="clearfix"></div>
     </div>
@@ -59,6 +70,7 @@
   <div ng-repeat="answer in question.answers">
     <hr/>
 
+    <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
     <div style="float: left;font-size: large; padding: 0; width: 2em; text-align: center;">
       <button ng-if=" isStar(answer)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/answers/' + answer._id)">
         <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
@@ -70,8 +82,11 @@
       <div>{{answer.stars.length}}</div>
     </div>
 
-    <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
-    <pagedown-viewer content="answer.content"></pagedown-viewer>
+    <pagedown-viewer content="answer.content" ng-if="!editting"></pagedown-viewer>
+    <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
+    <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
+    <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
+
     <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{answer.user.name}}</a> · {{answer.createdAt|fromNow}}</div>
     <div class="clearfix"></div>
     <div class="comment">
@@ -80,6 +95,7 @@
 
 
 
+        <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
 
         <div style="float: left;font-size: normal; padding: 0; width: 2em; text-align: center;">
           <button ng-if=" isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/answers/' + answer._id + '/comments/' + comment._id)">
@@ -93,8 +109,11 @@
         </div>
 
 
-        <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
-        <pagedown-viewer content="comment.content"></pagedown-viewer>
+        <pagedown-viewer content="comment.content" ng-if="!editting"></pagedown-viewer>
+        <pagedown-editor content="comment.content" ng-if=" editting"></pagedown-editor>
+        <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswerComment(answer, comment)" ng-show=" editting">Save</button>
+        <a ng-click="editting=!editting;" ng-show="isOwner(comment) && !editting">Edit</a>
+
         <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{comment.user.name}}</a> · {{comment.createdAt|fromNow}}</div>
         <div class="clearfix"></div>
       </div>
