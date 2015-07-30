@@ -88,6 +88,7 @@ exports.updateAnswer = function(req, res) {
     if(err) { return handleError(res, err); }
     if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 exports.destroyAnswer = function(req, res) {
@@ -138,6 +139,7 @@ exports.updateComment = function(req, res) {
     if(err) { return handleError(res, err); }
     if(num === 0) { return res.send(404); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 };
 exports.starComment = function(req, res) {
@@ -207,6 +209,7 @@ exports.updateAnswerComment = function(req, res) {
           console.log("UPDATED:num=", num);
           if(num === 0) { return res.send(404); }
           exports.show(req, res);
+          Question.updateSearchText(req.params.id);
           return;
         });
       }

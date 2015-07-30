@@ -6,6 +6,7 @@ angular.module('paizaqaApp')
       .state('questionsCreate', {
         url: '/questions/create',
         templateUrl: 'app/questionsCreate/questionsCreate.html',
-        controller: 'QuestionsCreateCtrl'
+        controller: 'QuestionsCreateCtrl',
+        // authenticate: true,
       });
   });

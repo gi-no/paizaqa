@@ -66,7 +66,7 @@
       <button type="button" class="btn btn-primary" ng-click="submitComment(questionComment)" ng-disabled="commentForm.$invalid">Add Comment</button>
     </form>
   </div>
-  <h3>{{question.answers.length}} Answers</h2>
+  <h3>{{question.answers.length}} Answers</h3>
   <div ng-repeat="answer in question.answers">
     <hr/>
 
@@ -82,12 +82,13 @@
       <div>{{answer.stars.length}}</div>
     </div>
 
-    <pagedown-viewer content="answer.content" ng-if="!editting"></pagedown-viewer>
-    <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
-    <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
-    <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
-
-    <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{answer.user.name}}</a> · {{answer.createdAt|fromNow}}</div>
+    <div class="answer">
+      <pagedown-viewer content="answer.content" ng-if="!editting"></pagedown-viewer>
+      <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
+      <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
+      <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
+      <div class="text-right">by <a ng-href="/users/{{question.user._id}}">{{answer.user.name}}</a> · {{answer.createdAt|fromNow}}</div>
+    </div>
     <div class="clearfix"></div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
@@ -129,7 +130,7 @@
     </div>
   </div>
   <hr/>
-  <h3>Your answer</h2>
+  <h3>Your answer</h3>
   <form name="answerForm">
     <pagedown-editor content="newAnswer.content" ng-model="newAnswer.content" name="answerEditor" required></pagedown-editor>
     <button type="submit" class="btn btn-primary" ng-click="submitAnswer()" ng-disabled="answerForm.$invalid">Submit your answer</button>
