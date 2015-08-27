@@ -24,6 +24,14 @@
       <tr ng-repeat="question in questions">
         <td>
           <a ng-href="/questions/show/{{question._id}}" style="font-size: large">{{question.title}}</a>
+          <div>
+            <span ng-repeat="tag in question.tags">
+              <span class="label label-info">
+                {{tag.text}}
+              </span>
+              &nbsp;
+            </span>
+          </div>
         </td>
       </tr>
     </tbody>
