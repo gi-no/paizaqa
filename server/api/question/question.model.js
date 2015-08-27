@@ -82,5 +82,13 @@ QuestionSchema.pre('findOne', function(next){
   this.populate('answers.comments.user', 'name');
   next();
 });
+QuestionSchema.index({
+  'title': 'text',
+  'content': 'text',
+  'tags.text': 'text',
+  'answers.content': 'text',
+  'comments.content': 'text',
+  'answers.comments.content': 'text',
+}, {name: 'question_schema_index'});
 
 module.exports = mongoose.model('Question', QuestionSchema);

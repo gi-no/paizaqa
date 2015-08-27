@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .controller('QuestionsIndexCtrl', function ($scope, $http, Auth, query) {
+  .controller('QuestionsIndexCtrl', function ($scope, $http, $location, Auth, query) {
+
+    var keyword = $location.search().keyword;
+    if(keyword){
+      query = _.merge(query, {$text: {$search: keyword}});
+    }
     $http.get('/api/questions', {params: {query: query}}).success(function(questions) {
       $scope.questions = questions;
     });

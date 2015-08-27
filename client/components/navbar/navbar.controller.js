@@ -24,4 +24,9 @@ angular.module('paizaqaApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+
+    $scope.search = function(keyword) {
+      $state.go('main', {keyword: keyword}, {reload: true});
+    };
+
   });
