@@ -11,9 +11,8 @@ describe('Filter: fromNow', function () {
     fromNow = $filter('fromNow');
   }));
 
-  it('should return the input prefixed with "fromNow filter:"', function () {
-    var text = 'angularjs';
-    expect(fromNow(text)).toBe('fromNow filter: ' + text);
+  it('return "a few seconds ago" for now', function () {
+    expect(fromNow(Date.now())).toBe('a few seconds ago');
   });
 
 });

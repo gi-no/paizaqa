@@ -3,6 +3,6 @@
 angular.module('paizaqaApp')
   .filter('fromNow', function () {
     return function (input) {
-      return 'fromNow filter: ' + input;
+      return moment(input).locale(window.navigator.language).fromNow();
     };
   });
