@@ -1,1 +1,11 @@
-<div>This is the questionsCreate view.</div>
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <form name="form" ng-submit="submit()">
+    <h2>Title:</h2>
+    <input type="text" class="form-control" ng-model="question.title">
+    <br>
+    <h2>Question:</h2>
+    <textarea rows=10 cols=80 ng-model="question.content"></textarea>
+    <input type="submit" class="btn btn-primary" value="Post question">
+  </form>
+</div>

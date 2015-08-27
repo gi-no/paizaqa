@@ -6,6 +6,9 @@ var Schema = mongoose.Schema;
 var QuestionSchema = new Schema({
   title: String,
   content: String,
+  answers: [{
+    content: String,
+  }],
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);

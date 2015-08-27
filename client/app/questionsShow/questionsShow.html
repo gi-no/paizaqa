@@ -1,1 +1,25 @@
-<div>This is the questionsShow view.</div>
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container" id="question-show-container">
+  <div>
+    <div>
+      <h1>{{question.title}}</h1>
+    </div>
+  </div>
+  <hr/>
+  {{question.content}}
+
+  &nbsp;
+  <h3>{{question.answers.length}} Answers</h3>
+  <div ng-repeat="answer in question.answers">
+    <hr/>
+    <div class="answer">
+      {{answer.content}}
+    </div>
+  </div>
+  <hr/>
+  <h3>Your answer</h3>
+  <form name="answerForm" ng-submit="submitAnswer()">
+    <textarea rows=10 cols=80 ng-model="newAnswer.content"></textarea>
+    <input type="submit" class="btn btn-primary" value="Submit your answer">
+  </form>
+</div>
