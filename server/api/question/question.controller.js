@@ -72,7 +72,8 @@ function removeEntity(res) {
 
 // Gets a list of Questions
 exports.index = function(req, res) {
-  Question.find().sort({createdAt: -1}).limit(20).execAsync()
+  var query = req.query.query && JSON.parse(req.query.query);
+  Question.find(query).sort({createdAt: -1}).limit(20).execAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
 };

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .controller('QuestionsIndexCtrl', function ($scope, $http, Auth, $location) {
-    $http.get('/api/questions').success(function(questions) {
+  .controller('QuestionsIndexCtrl', function ($scope, $http, Auth, query) {
+    $http.get('/api/questions', {params: {query: query}}).success(function(questions) {
       $scope.questions = questions;
     });
 

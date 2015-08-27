@@ -11,7 +11,8 @@ describe('Controller: QuestionsIndexCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     QuestionsIndexCtrl = $controller('QuestionsIndexCtrl', {
-      $scope: scope
+      $scope: scope,
+      query: {},
     });
   }));
 
