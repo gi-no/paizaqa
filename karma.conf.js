@@ -16,6 +16,7 @@ module.exports = function(config) {
       'client/bower_components/angular/angular.js',
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
+      'client/bower_components/angular-messages/angular-messages.js',
       'client/bower_components/pagedown/Markdown.Converter.js',
       'client/bower_components/pagedown/Markdown.Sanitizer.js',
       'client/bower_components/pagedown/Markdown.Extra.js',
