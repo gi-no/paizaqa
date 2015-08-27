@@ -29,6 +29,7 @@ module.exports = function(config) {
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/bower_components/moment/moment.js',
       'client/bower_components/ng-tags-input/ng-tags-input.min.js',
+      'client/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',
