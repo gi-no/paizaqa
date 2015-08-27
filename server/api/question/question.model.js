@@ -8,6 +8,17 @@ var QuestionSchema = new Schema({
   content: String,
   answers: [{
     content: String,
+    comments: [{
+      content: String,
+      user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      }
+    }],
     user: {
       type: Schema.ObjectId,
       ref: 'User'
@@ -20,6 +31,17 @@ var QuestionSchema = new Schema({
   tags: [{
     text: String,
   }],
+  comments: [{
+    content: String,
+    user: {
+      type: Schema.ObjectId,
+      ref: 'User'
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  }],
   user: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -29,14 +51,19 @@ var QuestionSchema = new Schema({
     default: Date.now
   },
 });
+
 QuestionSchema.pre('find', function(next){
   this.populate('user', 'name');
+  this.populate('comments.user', 'name');
   this.populate('answers.user', 'name');
+  this.populate('answers.comments.user', 'name');
   next();
 });
 QuestionSchema.pre('findOne', function(next){
   this.populate('user', 'name');
+  this.populate('comments.user', 'name');
   this.populate('answers.user', 'name');
+  this.populate('answers.comments.user', 'name');
   next();
 });
 
