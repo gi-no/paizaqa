@@ -38,6 +38,17 @@ function handleEntityNotFound(res) {
   };
 }
 
+function handleUnauthorized(req, res) {
+  return function(entity) {
+    if (!entity) {return null;}
+    if(entity.user._id.toString() !== req.user._id.toString()){
+      res.send(403).end();
+      return null;
+    }
+    return entity;
+  }
+}
+
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
@@ -61,7 +72,7 @@ function removeEntity(res) {
 
 // Gets a list of Questions
 exports.index = function(req, res) {
-  Question.findAsync()
+  Question.find().sort({createdAt: -1}).limit(20).execAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
@@ -76,6 +87,7 @@ exports.show = function(req, res) {
 
 // Creates a new Question in the DB
 exports.create = function(req, res) {
+  req.body.user = req.user;
   Question.createAsync(req.body)
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
@@ -88,6 +100,7 @@ exports.update = function(req, res) {
   }
   Question.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
+    .then(handleUnauthorized(req, res))
     .then(saveUpdates(req.body))
     .then(responseWithResult(res))
     .catch(handleError(res));
@@ -97,6 +110,7 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
   Question.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
+    .then(handleUnauthorized(req, res))
     .then(removeEntity(res))
     .catch(handleError(res));
 };
@@ -108,4 +122,21 @@ exports.createAnswer = function(req, res) {
     exports.show(req, res);
   });
 };
+
+exports.updateAnswer = function(req, res) {
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {'answers.$.content': req.body.content, 'answers.$.user': req.user.id}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+
+exports.destroyAnswer = function(req, res) {
+  Question.update({_id: req.params.id}, {$pull: {answers: {_id: req.params.answerId , 'user': req.user._id}}}, function(err, num) {
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+
 

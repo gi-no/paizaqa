@@ -2,10 +2,39 @@
 
 var app = require('../../app');
 var request = require('supertest');
+var User = require('../user/user.model');
 
 var newQuestion;
 
 describe('Question API:', function() {
+  var user;
+  before(function() {
+    return User.removeAsync().then(function() {
+      user = new User({
+        name: 'Fake User',
+        email: 'test@test.com',
+        password: 'password'
+      });
+
+      return user.saveAsync();
+    });
+  });
+
+  var token;
+  before(function(done) {
+    request(app)
+      .post('/auth/local')
+      .send({
+        email: 'test@test.com',
+        password: 'password'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        token = res.body.token;
+        done();
+      });
+  });
 
   describe('GET /api/questions', function() {
     var questions;
@@ -34,6 +63,7 @@ describe('Question API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/questions')
+        .set('authorization', 'Bearer ' + token)
         .send({
           title: 'New Question',
           content: 'This is the brand new question!!!'
@@ -90,6 +120,7 @@ describe('Question API:', function() {
     beforeEach(function(done) {
       request(app)
         .put('/api/questions/' + newQuestion._id)
+        .set('authorization', 'Bearer ' + token)
         .send({
           title: 'Updated Question',
           content: 'This is the updated question!!!'
@@ -121,6 +152,7 @@ describe('Question API:', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
         .delete('/api/questions/' + newQuestion._id)
+        .set('authorization', 'Bearer ' + token)
         .expect(204)
         .end(function(err, res) {
           if (err) {
@@ -133,6 +165,7 @@ describe('Question API:', function() {
     it('should respond with 404 when question does not exist', function(done) {
       request(app)
         .delete('/api/questions/' + newQuestion._id)
+        .set('authorization', 'Bearer ' + token)
         .expect(404)
         .end(function(err, res) {
           if (err) {

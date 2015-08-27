@@ -1,8 +1,14 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="question-show-container">
   <div>
+    <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
     <div>
-      <h1>{{question.title}}</h1>
+
+      <h1>
+        <div ng-if="! editting">{{question.title}}</div>
+        <input type=text ng-model="question.title" ng-if=" editting">
+      </h1>
+
       <span ng-repeat="tag in question.tags">
         <span class="label label-info">
           {{tag.text}}
@@ -12,14 +18,23 @@
   </div>
   <hr/>
 
-  <pagedown-viewer content="question.content"></pagedown-viewer>
+  <pagedown-viewer content="question.content" ng-if="!editting"></pagedown-viewer>
+  <pagedown-editor content="question.content" ng-if=" editting"></pagedown-editor>
+  <button type="submit" class="btn btn-primary" ng-click="editting=false;updateQuestion()" ng-show=" editting">Save</button>
+  <a ng-click="editting=!editting;" ng-show="isOwner(question) && !editting">Edit</a>
+  <div class="text-right">by {{question.user.name}} · {{question.createdAt}}</div>
 
   &nbsp;
   <h3>{{question.answers.length}} Answers</h3>
   <div ng-repeat="answer in question.answers">
     <hr/>
     <div class="answer">
-      <pagedown-viewer content="answer.content"></pagedown-viewer>
+      <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
+      <pagedown-viewer content="answer.content" ng-if="!editting"></pagedown-viewer>
+      <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
+      <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
+      <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
+    <div class="text-right">by {{answer.user.name}} · {{answer.createdAt}}</div>
     </div>
   </div>
   <hr/>
