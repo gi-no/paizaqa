@@ -5,7 +5,7 @@
     <input type="text" class="form-control" ng-model="question.title">
     <br>
     <h2>Question:</h2>
-    <textarea rows=10 cols=80 ng-model="question.content"></textarea>
+    <pagedown-editor content="question.content"></pagedown-editor>
     <input type="submit" class="btn btn-primary" value="Post question">
   </form>
 </div>
