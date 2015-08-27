@@ -1,4 +1,10 @@
-# paizaqa
+# paizaQA
+
+Open source, QA service, like stackoverflow or Quora.
+
+[PaizaQA](http://paizaqa.herokuapp.com)
+
+Source code: https://github.com/gi-no/paizaqa
 
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.0.0-rc4.
 
