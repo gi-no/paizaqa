@@ -22,7 +22,7 @@
   <pagedown-editor content="question.content" ng-if=" editting"></pagedown-editor>
   <button type="submit" class="btn btn-primary" ng-click="editting=false;updateQuestion()" ng-show=" editting">Save</button>
   <a ng-click="editting=!editting;" ng-show="isOwner(question) && !editting">Edit</a>
-  <div class="text-right">by {{question.user.name}} · {{question.createdAt}}</div>
+  <div class="text-right">by {{question.user.name}} · {{question.createdAt|fromNow}}</div>
 
   &nbsp;
   <h3>{{question.answers.length}} Answers</h3>
@@ -34,7 +34,7 @@
       <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
       <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
       <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
-    <div class="text-right">by {{answer.user.name}} · {{answer.createdAt}}</div>
+    <div class="text-right">by {{answer.user.name}} · {{answer.createdAt|fromNow}}</div>
     </div>
   </div>
   <hr/>

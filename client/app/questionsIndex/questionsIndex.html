@@ -27,7 +27,7 @@
           <div class="clearfix"></div>
           <div style="float: right;">
             by {{question.user.name}}
-             · {{question.createdAt}}
+             · {{question.createdAt|fromNow}}
           </div>
           <div>
             <span ng-repeat="tag in question.tags">
