@@ -9,6 +9,7 @@ angular.module('paizaqaApp', [
   'ui.bootstrap',
   'ui.pagedown',
   'ngTagsInput',
+  'ngMessages',
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

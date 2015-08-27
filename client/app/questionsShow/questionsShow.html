@@ -40,7 +40,7 @@
   <hr/>
   <h3>Your answer</h3>
   <form name="answerForm" ng-submit="submitAnswer()">
-    <pagedown-editor content="newAnswer.content"></pagedown-editor>
-    <input type="submit" class="btn btn-primary" value="Submit your answer">
+    <pagedown-editor content="newAnswer.content" ng-model="newAnswer.content" name="answerEditor" required></pagedown-editor>
+    <input type="submit" class="btn btn-primary" ng-disabled="answerForm.$invalid" value="Submit your answer">
   </form>
 </div>
