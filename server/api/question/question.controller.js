@@ -209,4 +209,89 @@ exports.updateAnswerComment = function(req, res) {
   });
 };
 
+/* star/unstar question */
+exports.star = function(req, res) {
+  Question.update({_id: req.params.id}, {$push: {stars: req.user.id}}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+exports.unstar = function(req, res) {
+  Question.update({_id: req.params.id}, {$pull: {stars: req.user.id}}, function(err, num){
+    if(err) { return handleError(res, err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+
+/* star/unstar answer */
+exports.starAnswer = function(req, res) {
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$push: {'answers.$.stars': req.user.id}}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+exports.unstarAnswer = function(req, res) {
+  Question.update({_id: req.params.id, 'answers._id': req.params.answerId}, {$pull: {'answers.$.stars': req.user.id}}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+
+/* star/unstar question comment */
+exports.starComment = function(req, res) {
+  Question.update({_id: req.params.id, 'comments._id': req.params.commentId}, {$push: {'comments.$.stars': req.user.id}}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+exports.unstarComment = function(req, res) {
+  Question.update({_id: req.params.id, 'comments._id': req.params.commentId}, {$pull: {'comments.$.stars': req.user.id}}, function(err, num){
+    if(err) { return handleError(res)(err); }
+    if(num === 0) { return res.send(404).end(); }
+    exports.show(req, res);
+  });
+};
+
+/* star/unstar question answer comment */
+var pushOrPullStarAnswerComment = function(op, req, res) {
+  Question.find({_id: req.params.id}).exec(function(err, questions){
+    if(err) { return handleError(res)(err); }
+    if(questions.length === 0) { return res.send(404).end(); }
+    var question = questions[0];
+    var found = false;
+    for(var i=0; i < question.answers.length; i++){
+      if(question.answers[i]._id.toString() === req.params.answerId){
+        found = true;
+        var conditions = {};
+        conditions._id = req.params.id;
+        conditions['answers.' + i + '.comments._id'] = req.params.commentId;
+        var doc = {};
+        doc[op] = {};
+        doc[op]['answers.' + i + '.comments.$.stars'] = req.user.id;
+        // Question.update({_id: req.params.id, 'answers.' + i + '.comments._id': req.params.commentId}, {op: {('answers.' + i + '.comments.$.stars'): req.user.id}}, function(err, num){
+        /*jshint -W083 */
+        Question.update(conditions, doc, function(err, num){
+          if(err) { return handleError(res)(err); }
+          if(num === 0) { return res.send(404).end(); }
+          exports.show(req, res);
+          return;
+        });
+      }
+    }
+    if(!found){
+      return res.send(404).end();
+    }
+  });
+};
+exports.starAnswerComment = function(req, res) {
+  pushOrPullStarAnswerComment('$push', req, res);
+};
+exports.unstarAnswerComment = function(req, res) {
+  pushOrPullStarAnswerComment('$pull', req, res);
+};
 

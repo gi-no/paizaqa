@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .controller('QuestionsShowCtrl', function ($scope, $http, $stateParams) {
+  .controller('QuestionsShowCtrl', function ($scope, $http, $stateParams, Auth, $location) {
     var loadQuestions = function(){
       $http.get('/api/questions/' + $stateParams.id).success(function(question) {
         $scope.question = question;
@@ -73,5 +73,20 @@ angular.module('paizaqaApp')
         loadQuestions();
       });
     };
+
+    $scope.isStar = function(obj){
+      return Auth.isLoggedIn() && obj && obj.stars && obj.stars.indexOf(Auth.getCurrentUser()._id)!==-1;
+    };
+    $scope.star = function(subpath) {
+      $http.put('/api/questions/' + $scope.question._id + subpath + '/star').success(function(){
+        loadQuestions();
+      });
+    };
+    $scope.unstar = function(subpath) {
+      $http.delete('/api/questions/' + $scope.question._id + subpath + '/star').success(function(){
+        loadQuestions();
+      });
+    };
+
 
   });

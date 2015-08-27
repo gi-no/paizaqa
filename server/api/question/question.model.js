@@ -10,6 +10,10 @@ var QuestionSchema = new Schema({
     content: String,
     comments: [{
       content: String,
+      stars: [{
+        type: Schema.ObjectId,
+        ref: 'User'
+      }],
       user: {
         type: Schema.ObjectId,
         ref: 'User'
@@ -18,6 +22,10 @@ var QuestionSchema = new Schema({
         type: Date,
         default: Date.now,
       }
+    }],
+    stars: [{
+      type: Schema.ObjectId,
+      ref: 'User'
     }],
     user: {
       type: Schema.ObjectId,
@@ -33,6 +41,10 @@ var QuestionSchema = new Schema({
   }],
   comments: [{
     content: String,
+    stars: [{
+      type: Schema.ObjectId,
+      ref: 'User'
+    }],
     user: {
       type: Schema.ObjectId,
       ref: 'User'
@@ -41,6 +53,10 @@ var QuestionSchema = new Schema({
       type: Date,
       default: Date.now,
     }
+  }],
+  stars: [{
+    type: Schema.ObjectId,
+    ref: 'User'
   }],
   user: {
     type: Schema.ObjectId,
