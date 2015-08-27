@@ -9,6 +9,9 @@ var QuestionSchema = new Schema({
   answers: [{
     content: String,
   }],
+  tags: [{
+    text: String,
+  }],
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);
