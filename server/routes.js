@@ -4,11 +4,10 @@
 
 'use strict';
 
-var errors = require('./components/errors');
-var path = require('path');
+import errors from './components/errors';
+import path from 'path';
 
-module.exports = function(app) {
-
+export default function(app) {
   // Insert routes below
   app.use('/api/questions', require('./api/question'));
   app.use('/api/things', require('./api/thing'));
@@ -22,7 +21,7 @@ module.exports = function(app) {
 
   // All other routes should redirect to the index.html
   app.route('/*')
-    .get(function(req, res) {
+    .get((req, res) => {
       res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
     });
-};
+}

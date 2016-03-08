@@ -6,7 +6,8 @@ angular.module('paizaqaApp')
       .state('login', {
         url: '/login',
         templateUrl: 'app/account/login/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .state('logout', {
         url: '/logout?referrer',
@@ -23,12 +24,14 @@ angular.module('paizaqaApp')
       .state('signup', {
         url: '/signup',
         templateUrl: 'app/account/signup/signup.html',
-        controller: 'SignupCtrl'
+        controller: 'SignupController',
+        controllerAs: 'vm'
       })
       .state('settings', {
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsCtrl',
+        controller: 'SettingsController',
+        controllerAs: 'vm',
         authenticate: true
       });
   })

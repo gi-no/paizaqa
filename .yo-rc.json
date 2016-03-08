@@ -1,5 +1,6 @@
 {
   "generator-angular-fullstack": {
+    "generatorVersion": "3.3.0",
     "endpointDirectory": "server/api/",
     "insertRoutes": true,
     "registerRoutesFile": "server/routes.js",
@@ -14,6 +15,7 @@
     "modelsNeedle": "// Insert models below",
     "filters": {
       "js": true,
+      "babel": true,
       "html": true,
       "sass": true,
       "uirouter": true,
@@ -48,6 +50,7 @@
       "uirouter"
     ],
     "extensions": [
+      "babel",
       "js",
       "html",
       "scss"

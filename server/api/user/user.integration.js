@@ -1,8 +1,8 @@
 'use strict';
 
-var app = require('../../app');
-var User = require('./user.model');
-var request = require('supertest');
+import app from '../..';
+import User from './user.model';
+import request from 'supertest';
 
 describe('User API:', function() {
   var user;
@@ -12,7 +12,7 @@ describe('User API:', function() {
     return User.removeAsync().then(function() {
       user = new User({
         name: 'Fake User',
-        email: 'test@test.com',
+        email: 'test@example.com',
         password: 'password'
       });
 
@@ -32,12 +32,12 @@ describe('User API:', function() {
       request(app)
         .post('/auth/local')
         .send({
-          email: 'test@test.com',
+          email: 'test@example.com',
           password: 'password'
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           token = res.body.token;
           done();
         });
@@ -49,7 +49,7 @@ describe('User API:', function() {
         .set('authorization', 'Bearer ' + token)
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           res.body._id.toString().should.equal(user._id.toString());
           done();
         });

@@ -1,7 +1,7 @@
 'use strict';
 
-var app = require('../../app');
-var request = require('supertest');
+var app = require('../..');
+import request from 'supertest';
 var User = require('../user/user.model');
 
 var newQuestion;
@@ -35,7 +35,7 @@ describe('Question API:', function() {
         done();
       });
   });
-
+  
   describe('GET /api/questions', function() {
     var questions;
 
@@ -44,7 +44,7 @@ describe('Question API:', function() {
         .get('/api/questions')
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -63,14 +63,13 @@ describe('Question API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/questions')
-        .set('authorization', 'Bearer ' + token)
         .send({
           title: 'New Question',
-          content: 'This is the brand new question!!!'
+          cotent: 'This is the brand new question!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -94,7 +93,7 @@ describe('Question API:', function() {
         .get('/api/questions/' + newQuestion._id)
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -115,12 +114,11 @@ describe('Question API:', function() {
   });
 
   describe('PUT /api/questions/:id', function() {
-    var updatedQuestion
+    var updatedQuestion;
 
     beforeEach(function(done) {
       request(app)
         .put('/api/questions/' + newQuestion._id)
-        .set('authorization', 'Bearer ' + token)
         .send({
           title: 'Updated Question',
           content: 'This is the updated question!!!'
@@ -152,9 +150,8 @@ describe('Question API:', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
         .delete('/api/questions/' + newQuestion._id)
-        .set('authorization', 'Bearer ' + token)
         .expect(204)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -165,9 +162,8 @@ describe('Question API:', function() {
     it('should respond with 404 when question does not exist', function(done) {
       request(app)
         .delete('/api/questions/' + newQuestion._id)
-        .set('authorization', 'Bearer ' + token)
         .expect(404)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }

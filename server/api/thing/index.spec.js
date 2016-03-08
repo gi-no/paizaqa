@@ -38,8 +38,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.index', function() {
       routerStub.get
-                .withArgs('/', 'thingCtrl.index')
-                .should.have.been.calledOnce;
+        .withArgs('/', 'thingCtrl.index')
+        .should.have.been.calledOnce;
     });
 
   });
@@ -48,8 +48,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.show', function() {
       routerStub.get
-                .withArgs('/:id', 'thingCtrl.show')
-                .should.have.been.calledOnce;
+        .withArgs('/:id', 'thingCtrl.show')
+        .should.have.been.calledOnce;
     });
 
   });
@@ -58,8 +58,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.create', function() {
       routerStub.post
-                .withArgs('/', 'thingCtrl.create')
-                .should.have.been.calledOnce;
+        .withArgs('/', 'thingCtrl.create')
+        .should.have.been.calledOnce;
     });
 
   });
@@ -68,8 +68,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.update', function() {
       routerStub.put
-                .withArgs('/:id', 'thingCtrl.update')
-                .should.have.been.calledOnce;
+        .withArgs('/:id', 'thingCtrl.update')
+        .should.have.been.calledOnce;
     });
 
   });
@@ -78,8 +78,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.update', function() {
       routerStub.patch
-                .withArgs('/:id', 'thingCtrl.update')
-                .should.have.been.calledOnce;
+        .withArgs('/:id', 'thingCtrl.update')
+        .should.have.been.calledOnce;
     });
 
   });
@@ -88,8 +88,8 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.destroy', function() {
       routerStub.delete
-                .withArgs('/:id', 'thingCtrl.destroy')
-                .should.have.been.calledOnce;
+        .withArgs('/:id', 'thingCtrl.destroy')
+        .should.have.been.calledOnce;
     });
 
   });

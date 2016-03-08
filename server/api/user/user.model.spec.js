@@ -1,13 +1,13 @@
 'use strict';
 
-var app = require('../../app');
-var User = require('./user.model');
+import app from '../..';
+import User from './user.model';
 var user;
 var genUser = function() {
   user = new User({
     provider: 'local',
     name: 'Fake User',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'password'
   });
   return user;
@@ -28,8 +28,8 @@ describe('User Model', function() {
   });
 
   it('should begin with no users', function() {
-    return User.findAsync({})
-      .should.eventually.have.length(0);
+    return User.findAsync({}).should
+      .eventually.have.length(0);
   });
 
   it('should fail when saving a duplicate user', function() {

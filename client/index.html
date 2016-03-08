@@ -29,7 +29,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <navbar></navbar>
     <div ui-view=""></div>
+    <footer></footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -50,35 +52,37 @@
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>
-      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-      <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/angular-socket-io/socket.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
       <script src="bower_components/pagedown/Markdown.Converter.js"></script>
       <script src="bower_components/pagedown/Markdown.Sanitizer.js"></script>
       <script src="bower_components/pagedown/Markdown.Extra.js"></script>
       <script src="bower_components/pagedown/Markdown.Editor.js"></script>
       <script src="bower_components/angular-pagedown/angular-pagedown.js"></script>
-      <script src="bower_components/angular-resource/angular-resource.js"></script>
-      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-      <script src="bower_components/angular-socket-io/socket.js"></script>
-      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-      <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-      <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+      <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
       <!-- endbower -->
-      <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+      <script src="bower_components/momentjs/min/moment-with-locales.min.js"></script>
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
-    <!-- build:js({.tmp,client}) app/app.js -->
+    <!-- build:js(.tmp) app/app.js -->
       <script src="app/app.js"></script>
       <!-- injector:js -->
-      <script src="app/account/account.js"></script>
-      <script src="app/account/login/login.controller.js"></script>
-      <script src="app/account/settings/settings.controller.js"></script>
+      <script src="components/auth/auth.module.js"></script>
+      <script src="app/admin/admin.module.js"></script>
+      <script src="components/util/util.module.js"></script>
       <script src="app/account/signup/signup.controller.js"></script>
       <script src="app/admin/admin.controller.js"></script>
-      <script src="app/admin/admin.js"></script>
+      <script src="app/account/account.js"></script>
+      <script src="app/admin/admin.router.js"></script>
+      <script src="app/app.constant.js"></script>
       <script src="app/fromNow/fromNow.filter.js"></script>
       <script src="app/questionsCreate/questionsCreate.controller.js"></script>
       <script src="app/questionsCreate/questionsCreate.js"></script>
@@ -86,18 +90,22 @@
       <script src="app/questionsIndex/questionsIndex.js"></script>
       <script src="app/questionsShow/questionsShow.controller.js"></script>
       <script src="app/questionsShow/questionsShow.js"></script>
+      <script src="app/account/login/login.controller.js"></script>
       <script src="components/auth/auth.service.js"></script>
+      <script src="components/auth/interceptor.service.js"></script>
+      <script src="components/auth/router.decorator.js"></script>
       <script src="components/auth/user.service.js"></script>
       <script src="components/footer/footer.directive.js"></script>
       <script src="components/modal/modal.service.js"></script>
       <script src="components/mongoose-error/mongoose-error.directive.js"></script>
       <script src="components/navbar/navbar.controller.js"></script>
       <script src="components/navbar/navbar.directive.js"></script>
+      <script src="components/oauth-buttons/oauth-buttons.controller.js"></script>
+      <script src="components/oauth-buttons/oauth-buttons.directive.js"></script>
       <script src="components/socket/socket.service.js"></script>
+      <script src="app/account/settings/settings.controller.js"></script>
+      <script src="components/util/util.service.js"></script>
       <!-- endinjector -->
     <!-- endbuild -->
-
-  <a href="https://github.com/gi-no/paizaqa"><img style="position: absolute; top: 50px; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-
   </body>
 </html>

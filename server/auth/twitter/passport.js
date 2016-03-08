@@ -1,7 +1,7 @@
-exports.setup = function(User, config) {
-  var passport = require('passport');
-  var TwitterStrategy = require('passport-twitter').Strategy;
+import passport from 'passport';
+import {Strategy as TwitterStrategy} from 'passport-twitter';
 
+export function setup(User, config) {
   passport.use(new TwitterStrategy({
     consumerKey: config.twitter.clientID,
     consumerSecret: config.twitter.clientSecret,
@@ -11,28 +11,22 @@ exports.setup = function(User, config) {
     User.findOneAsync({
       'twitter.id_str': profile.id
     })
-      .then(function(user) {
-        if (!user) {
-          user = new User({
-            name: profile.displayName,
-            username: profile.username,
-            role: 'user',
-            provider: 'twitter',
-            twitter: profile._json
-          });
-          user.saveAsync()
-            .then(function(user) {
-              return done(null, user);
-            })
-            .catch(function(err) {
-              return done(err);
-            });
-        } else {
+      .then(user => {
+        if (user) {
           return done(null, user);
         }
+
+        user = new User({
+          name: profile.displayName,
+          username: profile.username,
+          role: 'user',
+          provider: 'twitter',
+          twitter: profile._json
+        });
+        user.saveAsync()
+          .then(user => done(null, user))
+          .catch(err => done(err));
       })
-      .catch(function(err) {
-        return done(err);
-      });
+      .catch(err => done(err));
   }));
-};
+}

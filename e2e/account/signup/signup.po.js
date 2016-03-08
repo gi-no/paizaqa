@@ -6,21 +6,23 @@
 'use strict';
 
 var SignupPage = function() {
-  this.form = element(by.css('.form'));
-  this.form.name = this.form.element(by.model('user.name'));
-  this.form.email = this.form.element(by.model('user.email'));
-  this.form.password = this.form.element(by.model('user.password'));
-  this.form.submit = this.form.element(by.css('.btn-register'));
+  var form = this.form = element(by.css('.form'));
+  form.name = form.element(by.model('vm.user.name'));
+  form.email = form.element(by.model('vm.user.email'));
+  form.password = form.element(by.model('vm.user.password'));
+  form.confirmPassword = form.element(by.model('vm.user.confirmPassword'));
+  form.submit = form.element(by.css('.btn-register'));
+  form.oauthButtons = require('../../components/oauth-buttons/oauth-buttons.po').oauthButtons;
 
   this.signup = function(data) {
     for (var prop in data) {
-      var formElem = this.form[prop];
+      var formElem = form[prop];
       if (data.hasOwnProperty(prop) && formElem && typeof formElem.sendKeys === 'function') {
         formElem.sendKeys(data[prop]);
       }
     }
 
-    this.form.submit.click();
+    return form.submit.click();
   };
 };
 

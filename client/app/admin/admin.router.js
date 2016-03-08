@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('paizaqaApp')
+angular.module('paizaqaApp.admin')
   .config(function($stateProvider) {
     $stateProvider
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminController',
+        controllerAs: 'admin',
+        authenticate: 'admin'
       });
   });

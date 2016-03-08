@@ -1,4 +1,3 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container">
   <form name="form" ng-submit="submit()">
     <h2>Title:</h2>
@@ -9,7 +8,7 @@
     <span class="text-success" ng-show="form.question_title.$valid">OK</span>
     <br>
     <h2>Question:</h2>
-    <pagedown-editor content="question.content" ng-model="question.content" name="question_content" required></pagedown-editor>
+    <pagedown-editor ng-model="question.content" name="question_content" required></pagedown-editor>
     <span class="text-danger" ng-messages="form.question_content.$error">
       <span ng-message="required">Required</span>
     </span>

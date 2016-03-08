@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('paizaqaApp')
-  .directive('footer', function () {
+  .directive('footer', function() {
     return {
       templateUrl: 'components/footer/footer.html',
       restrict: 'E',
-      link: function (scope, element) {
+      link: function(scope, element) {
         element.addClass('footer');
       }
     };

@@ -1,7 +1,7 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" id="question-show-container">
   <div>
-    <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    <button ng-if="isOwner(question)" type="button" class="close" ng-click="deleteQuestion()">&times;</button>
+
     <div style="float: left;font-size: x-large; padding: 0; width: 2em; text-align: center;">
       <button ng-if=" isStar(question)" type="button" style="background: transparent; border: 0;" ng-click="unstar('')">
         <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
@@ -12,12 +12,14 @@
       <br/>
       <div>{{question.stars.length}}</div>
     </div>
+
+
+
     <div>
       <h1>
         <div ng-if="! editting">{{question.title}}</div>
         <input type=text ng-model="question.title" ng-if=" editting">
       </h1>
-
       <span ng-repeat="tag in question.tags">
         <span class="label label-info">
           {{tag.text}}
@@ -28,7 +30,7 @@
   <hr/>
 
   <pagedown-viewer content="question.content" ng-if="!editting"></pagedown-viewer>
-  <pagedown-editor content="question.content" ng-if=" editting"></pagedown-editor>
+  <pagedown-editor ng-model="question.content" ng-if=" editting"></pagedown-editor>
   <button type="submit" class="btn btn-primary" ng-click="editting=false;updateQuestion()" ng-show=" editting">Save</button>
   <a ng-click="editting=!editting;" ng-show="isOwner(question) && !editting">Edit</a>
 
@@ -50,8 +52,9 @@
         <div>{{comment.stars.length}}</div>
       </div>
 
+
       <pagedown-viewer content="comment.content" ng-if="!editting"></pagedown-viewer>
-      <pagedown-editor content="comment.content" ng-if=" editting"></pagedown-editor>
+      <pagedown-editor ng-model="comment.content" ng-if=" editting"></pagedown-editor>
       <button type="submit" class="btn btn-primary" ng-click="editting=false;updateComment(comment)" ng-show=" editting">Save</button>
       <a ng-click="editting=!editting;" ng-show="isOwner(comment) && !editting">Edit</a>
 
@@ -61,12 +64,15 @@
     <hr/>
     <a ng-click="editNewComment=!editNewComment;">add a comment</a>
     <form ng-if="editNewComment" name="commentForm">
-      <pagedown-editor content="newComment.content" editor-class="'comment-wmd-input'"
-        ng-model="newComment.content" name="commentEditor" required>
+      <pagedown-editor ng-model="newComment.content" editor-class="'comment-wmd-input'"
+        name="commentEditor" required>
       </pagedown-editor>
       <button type="button" class="btn btn-primary" ng-click="submitComment(questionComment)" ng-disabled="commentForm.$invalid">Add Comment</button>
     </form>
   </div>
+
+
+
 
   &nbsp;
   <h3>{{question.answers.length}} Answers</h3>
@@ -87,17 +93,23 @@
     <div class="answer">
       <button ng-if="isOwner(answer)" type="button" class="close" ng-click="deleteAnswer(answer)">&times;</button>
       <pagedown-viewer content="answer.content" ng-if="!editting"></pagedown-viewer>
-      <pagedown-editor content="answer.content" ng-if=" editting"></pagedown-editor>
+      <pagedown-editor ng-model="answer.content" ng-if=" editting"></pagedown-editor>
       <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswer(answer)" ng-show=" editting">Save</button>
       <a ng-click="editting=!editting;" ng-show="isOwner(answer) && !editting">Edit</a>
+    </div>
 
-    <div class="text-right">by {{answer.user.name}} · {{answer.createdAt|fromNow}}</div>
+
+
+
+
+    <div class="text-right">by {{answer.user.name}} at {{answer.createdAt|fromNow}}</div>
     <div class="comment">
       <div ng-repeat="comment in answer.comments">
         <hr/>
         <button ng-if="isOwner(comment)" type="button" class="close" ng-click="deleteAnswerComment(answer, comment)">&times;</button>
-
-        <div style="float: left;font-size: normal; padding: 0; width: 2em; text-align: center;">
+ 
+ 
+         <div style="float: left;font-size: normal; padding: 0; width: 2em; text-align: center;">
           <button ng-if=" isStar(comment)" type="button" style="background: transparent; border: 0;" ng-click="unstar('/answers/' + answer._id + '/comments/' + comment._id)">
             <span class="glyphicon glyphicon-star" style="color: #CF7C00;" ></span>
           </button>
@@ -107,9 +119,10 @@
           <br/>
           <div>{{comment.stars.length}}</div>
         </div>
-
+ 
+ 
         <pagedown-viewer content="comment.content" ng-if="!editting"></pagedown-viewer>
-        <pagedown-editor content="comment.content" ng-if=" editting"></pagedown-editor>
+        <pagedown-editor ng-model="comment.content" ng-if=" editting"></pagedown-editor>
         <button type="submit" class="btn btn-primary" ng-click="editting=false;updateAnswerComment(answer, comment)" ng-show=" editting">Save</button>
         <a ng-click="editting=!editting;" ng-show="isOwner(comment) && !editting">Edit</a>
 
@@ -120,18 +133,19 @@
       <a ng-click="editNewAnswerComment=!editNewAnswerComment;answer.newAnswerComment={}">add a comment</a>
       <form ng-if="editNewAnswerComment" name="answer_{{answer.id}}_comment">
         <hr/>
-        <pagedown-editor content="answer.newAnswerComment.content" editor-class="'comment-wmd-input'"
-          ng-model="answer.newAnswerComment.content" required>
+        <pagedown-editor ng-model="answer.newAnswerComment.content" editor-class="'comment-wmd-input'"
+          required>
         </pagedown-editor>
         <button type="button" class="btn btn-primary" ng-click="submitAnswerComment(answer)" ng-disabled="answer_{{answer.id}}_comment.$invalid">Add Comment</button>
       </form>
     </div>
   </div>
   <hr/>
-
   <h3>Your answer</h3>
   <form name="answerForm" ng-submit="submitAnswer()">
-    <pagedown-editor content="newAnswer.content" ng-model="newAnswer.content" name="answerEditor" required></pagedown-editor>
+    <pagedown-editor ng-model="newAnswer.content" name="answerEditor" required></pagedown-editor>
     <input type="submit" class="btn btn-primary" ng-disabled="answerForm.$invalid" value="Submit your answer">
   </form>
 </div>
+
+

@@ -11,7 +11,7 @@ describe('Logout View', function() {
 
   var testUser = {
     name: 'Test User',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'test'
   };
 
@@ -23,7 +23,11 @@ describe('Logout View', function() {
       .then(function() {
         return login(testUser);
       })
-      .finally(done);
+      .finally(function() {
+        browser.wait(function() {
+            return browser.executeScript('return !!window.angular');
+        }, 5000).then(done);
+      });
   });
 
   describe('with local auth', function() {

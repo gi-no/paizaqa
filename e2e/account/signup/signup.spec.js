@@ -14,12 +14,16 @@ describe('Signup View', function() {
 
   var testUser = {
     name: 'Test',
-    email: 'test@test.com',
-    password: 'test'
+    email: 'test@example.com',
+    password: 'test',
+    confirmPassword: 'test'
   };
 
-  beforeEach(function() {
+  beforeEach(function(done) {
     loadPage();
+    browser.wait(function() {
+        return browser.executeScript('return !!window.angular');
+    }, 5000).then(done);
   });
 
   it('should include signup form with correct inputs and submit button', function() {
@@ -29,8 +33,19 @@ describe('Signup View', function() {
     expect(page.form.email.getAttribute('name')).toBe('email');
     expect(page.form.password.getAttribute('type')).toBe('password');
     expect(page.form.password.getAttribute('name')).toBe('password');
+    expect(page.form.confirmPassword.getAttribute('type')).toBe('password');
+    expect(page.form.confirmPassword.getAttribute('name')).toBe('confirmPassword');
     expect(page.form.submit.getAttribute('type')).toBe('submit');
     expect(page.form.submit.getText()).toBe('Sign up');
+  });
+
+  it('should include oauth buttons with correct classes applied', function() {
+    expect(page.form.oauthButtons.facebook.getText()).toBe('Connect with Facebook');
+    expect(page.form.oauthButtons.facebook.getAttribute('class')).toMatch('btn-block');
+    expect(page.form.oauthButtons.google.getText()).toBe('Connect with Google+');
+    expect(page.form.oauthButtons.google.getAttribute('class')).toMatch('btn-block');
+    expect(page.form.oauthButtons.twitter.getText()).toBe('Connect with Twitter');
+    expect(page.form.oauthButtons.twitter.getAttribute('class')).toMatch('btn-block');
   });
 
   describe('with local auth', function() {

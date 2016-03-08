@@ -1,8 +1,14 @@
 'use strict';
 
-angular.module('paizaqaApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $state) {
-    $scope.menu = [
+class NavbarController {
+  //start-non-standard
+
+
+  isCollapsed = true;
+  //end-non-standard
+
+  constructor(Auth) {
+    this.menu = [
       {
         'title': 'All',
         'link': function(){return '/';},
@@ -19,14 +25,11 @@ angular.module('paizaqaApp')
         'show': Auth.isLoggedIn,
       },
     ];
+    this.isLoggedIn = Auth.isLoggedIn;
+    this.isAdmin = Auth.isAdmin;
+    this.getCurrentUser = Auth.getCurrentUser;
+  }
+}
 
-    $scope.isCollapsed = true;
-    $scope.isLoggedIn = Auth.isLoggedIn;
-    $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
-
-    $scope.search = function(keyword) {
-      $state.go('main', {keyword: keyword}, {reload: true});
-    };
-
-  });
+angular.module('paizaqaApp')
+  .controller('NavbarController', NavbarController);

@@ -4,17 +4,16 @@
  */
 
 'use strict';
-
-var Thing = require('../api/thing/thing.model');
-var User = require('../api/user/user.model');
+import Thing from '../api/thing/thing.model';
+import User from '../api/user/user.model';
 
 Thing.find({}).removeAsync()
-  .then(function() {
+  .then(() => {
     Thing.create({
       name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Karma, ' +
+      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
              'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, CoffeeScript, and Less.'
+             'Stylus, Sass, and Less.'
     }, {
       name: 'Server and Client integration',
       info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
@@ -41,20 +40,20 @@ Thing.find({}).removeAsync()
   });
 
 User.find({}).removeAsync()
-  .then(function() {
+  .then(() => {
     User.createAsync({
       provider: 'local',
       name: 'Test User',
-      email: 'test@test.com',
+      email: 'test@example.com',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
-      email: 'admin@admin.com',
+      email: 'admin@example.com',
       password: 'admin'
     })
-    .then(function() {
+    .then(() => {
       console.log('finished populating users');
     });
   });
