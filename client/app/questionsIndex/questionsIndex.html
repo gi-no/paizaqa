@@ -6,7 +6,7 @@
   </div>
 </header>
 
-<div class="container">
+<div class="container" infinite-scroll='nextPage()' infinite-scroll-disabled='busy || noMoreData'>
   <br/>
   <div style="text-align: center">
     <a type="button" class="btn btn-primary" href="/questions/create">Ask Question</a>
@@ -37,7 +37,7 @@
           <div class="clearfix"></div>
           <div style="float: right;">
             by <a ng-href="/users/{{question.user._id}}">{{question.user.name}}</a>
-             · {{question.createdAt|fromNow}}
+             Â· {{question.createdAt|fromNow}}
           </div>
           <div>
             <span ng-repeat="tag in question.tags">
@@ -52,4 +52,5 @@
       </tr>
     </tbody>
   </table>
+  <div ng-show='busy'>Loading data...</div>
 </div>

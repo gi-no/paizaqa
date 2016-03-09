@@ -7,7 +7,7 @@ class NavbarController {
   isCollapsed = true;
   //end-non-standard
 
-  constructor(Auth) {
+  constructor(Auth, $state) {
     this.menu = [
       {
         'title': 'All',
@@ -28,6 +28,10 @@ class NavbarController {
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
+
+    this.search = function(keyword) {
+      $state.go('main', {keyword: keyword}, {reload: true});
+    };
   }
 }
 

@@ -120,6 +120,7 @@ export function createAnswer(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 
@@ -128,6 +129,7 @@ export function destroyAnswer(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 
@@ -136,6 +138,7 @@ export function updateAnswer(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 
@@ -146,6 +149,7 @@ export function createComment(req, res) {
     if(err) {return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   })
 }
 export function destroyComment(req, res) {
@@ -153,6 +157,7 @@ export function destroyComment(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 export function updateComment(req, res) {
@@ -160,6 +165,7 @@ export function updateComment(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 
@@ -170,6 +176,7 @@ export function createAnswerComment(req, res) {
     if(err) {return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   })
 }
 export function destroyAnswerComment(req, res) {
@@ -177,6 +184,7 @@ export function destroyAnswerComment(req, res) {
     if(err) { return handleError(res)(err); }
     if(num === 0) { return res.send(404).end(); }
     exports.show(req, res);
+    Question.updateSearchText(req.params.id);
   });
 }
 export function updateAnswerComment(req, res) {
@@ -199,6 +207,7 @@ export function updateAnswerComment(req, res) {
           if(err) { return handleError(res)(err); }
           if(num === 0) { return res.send(404).end(); }
           exports.show(req, res);
+          Question.updateSearchText(req.params.id);
           return;
         });
       }

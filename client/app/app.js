@@ -14,6 +14,7 @@ angular.module('paizaqaApp', [
   'ui.pagedown',
   'ngTagsInput',
   'ngMessages',
+  'infinite-scroll',
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
