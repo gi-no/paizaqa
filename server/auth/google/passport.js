@@ -24,7 +24,7 @@ export function setup(User, config) {
           provider: 'google',
           google: profile._json
         });
-        user.saveAsync()
+        user.save()
           .then(user => done(null, user))
           .catch(err => done(err));
       })
