@@ -25,7 +25,7 @@ angular.module('paizaqaApp')
       $http.delete('/api/questions/' + $stateParams.id + '/answers/' + answer._id).success(function(){
         loadQuestions();
       });
-    };  
+    };
     $scope.updateQuestion = function() {
       $http.put('/api/questions/' + $stateParams.id, $scope.question).success(function(){
         loadQuestions();
@@ -41,7 +41,7 @@ angular.module('paizaqaApp')
     };
 
 
-
+    $scope.newComment = {};
     $scope.submitComment = function() {
       $http.post('/api/questions/' + $stateParams.id + '/comments', $scope.newComment).success(function(){
         loadQuestions();

@@ -37,7 +37,7 @@
           <div class="clearfix"></div>
           <div style="float: right;">
             by <a ng-href="/users/{{question.user._id}}">{{question.user.name}}</a>
-             Â· {{question.createdAt|fromNow}}
+             - {{question.createdAt|fromNow}}
           </div>
           <div>
             <span ng-repeat="tag in question.tags">
