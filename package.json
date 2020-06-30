@@ -13,7 +13,7 @@
     "ejs": "^2.3.3",
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
-    "express-jwt": "^3.0.0",
+    "express-jwt": "^6.0.0",
     "express-session": "^1.11.3",
     "jsonwebtoken": "^5.0.0",
     "lodash": "^3.10.1",
